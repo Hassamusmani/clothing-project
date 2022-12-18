@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './menu-item.styles.scss';
 
 export const MenuItem = ({ section: { title, size, imageUrl }}) => (
-  <Link className={`menu-item ${size}`} to={`/${title}`}>
+  <Link className={`menu-item ${size}`} to={`/shop/${title}`}>
     <div
       className="background-image"
       style={{
