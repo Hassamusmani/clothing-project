@@ -23,6 +23,10 @@
     width: 23%;
   }
 
+  .price {
+    padding-left: 45px;
+  }
+
   .quantity {
     display: flex;
     align-items: center;
@@ -40,7 +44,7 @@
   }
 
   .remove-button {
-    padding-left: 12px;
+    padding-left: 45px;
     cursor: pointer;
     font-weight: bold;
     font-size: 23px;
