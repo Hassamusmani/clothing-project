@@ -16,7 +16,7 @@ const Header = ({ currentUser, showCart, toggleCartHidden }) => {
 
   useEffect(() => {
     if (showCart) toggleCartHidden();
-  }, [location, toggleCartHidden, showCart]);
+  }, [location]);
 
   return (
     <div className="header">
