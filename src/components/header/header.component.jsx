@@ -17,11 +17,9 @@ const Header = ({ currentUser, showCart, toggleCartHidden }) => {
 
   const listenScrollEvent = () => {
     if (window.scrollY > 50) {
-      setHeaderBackground(true);
+      return setHeaderBackground(true);
     }
-    else {
-      setHeaderBackground(false);
-    }
+    return setHeaderBackground(false);
   }
 
   useEffect(() => {
