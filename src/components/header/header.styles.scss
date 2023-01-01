@@ -5,6 +5,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   .logo-container {
     height: 100%;
@@ -25,4 +28,8 @@
       cursor: pointer;
     }
   }
+}
+
+.header-scroll {
+  background-color: #ffffffbd;
 }
