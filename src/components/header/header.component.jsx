@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from "../../firebase/firebase.utils";
 import { connect } from 'react-redux'
@@ -10,6 +9,40 @@ import { selectCurrentUser } from "../../redux/user/user-selectors";
 import { selectShowCart } from "../../redux/cart/cart-selectors";
 import { createStructuredSelector } from "reselect";
 import { closeCartDropdown } from "../../redux/cart/cart-actions";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  height: 110px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: ${({ scrolled }) => scrolled ? '#ffffffbd' : 'transparent'};
+
+  .logo-container {
+    height: 100%;
+    width: 100px;
+    padding: 15px;
+  }
+
+  .options {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 20px;
+
+    .option {
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  }
+`;
 
 const Header = ({ currentUser, showCart, toggleCartHidden }) => {
   const location = useLocation();
@@ -35,7 +68,7 @@ const Header = ({ currentUser, showCart, toggleCartHidden }) => {
   }, []);
 
   return (
-    <div className={`header ${headerBackground ? 'header-scroll' : ''}`}>
+    <Wrapper scrolled={headerBackground}>
       <Link className="logo-container" to={'/'}>
         <Logo />
       </Link>
@@ -53,7 +86,7 @@ const Header = ({ currentUser, showCart, toggleCartHidden }) => {
         <CartIcon />
       </div>
       {showCart ? <CartDropdown /> : null}
-    </div>
+    </Wrapper>
   );
 }
 
