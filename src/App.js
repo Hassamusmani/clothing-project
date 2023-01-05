@@ -11,7 +11,6 @@ import { setCurrentUser } from './redux/user/user-actions';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user-selectors';
 import CheckoutPage from './pages/checkoutPage/checkoutPage.component';
-import CollectionPage from './pages/category/collection.component';
 class App extends React.Component {
   unsubscribeFromAuth = null;
   
@@ -29,6 +28,7 @@ class App extends React.Component {
         })
       } else this.props.setCurrentUser(userAuth);
     })
+    // addCollectionAndDocuments('collections', this.props.collections.map(({ title, items }) => ({ title, items })));
   }
 
   componentWillUnmount() {
@@ -37,14 +37,12 @@ class App extends React.Component {
 
   render() {
     const {currentUser} = this.props;
-    console.log(currentUser);
     return (
       <div>
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/shop' element={<ShopPage />} />
-          <Route path='/shop/:collectionId' element={<CollectionPage />} />
+          <Route path='/shop/*' element={<ShopPage />} />
           <Route path='/signin' element={currentUser ? <Navigate to='/' /> : <SignInAndSignUpPage />} />
           <Route path='/checkout' element={<CheckoutPage />} />
         </Routes>

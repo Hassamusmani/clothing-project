@@ -10,10 +10,10 @@ export const selectShopData = createSelector(
 
 export const selectShopDataForPreview = createSelector(
   [selectShopData],
-  shopData => Object.values(shopData)
+  shopData => shopData ? Object.values(shopData) : []
 );
 
 export const selectCollection = memoize(collectionId => createSelector(
   [selectShopData],
-  shopData => shopData[collectionId]
+  shopData => shopData ? shopData[collectionId] : null
 ));
