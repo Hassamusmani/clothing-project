@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { auth } from "../../firebase/firebase.utils";
 import { connect } from 'react-redux'
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
@@ -10,6 +9,7 @@ import { selectShowCart } from "../../redux/cart/cart-selectors";
 import { createStructuredSelector } from "reselect";
 import { closeCartDropdown } from "../../redux/cart/cart-actions";
 import styled from "styled-components";
+import { signOutStart } from "../../redux/user/user-actions";
 
 const Wrapper = styled.div`
   height: 110px;
@@ -44,7 +44,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Header = ({ currentUser, showCart, toggleCartHidden }) => {
+const Header = ({ currentUser, showCart, toggleCartHidden, signOutStart }) => {
   const location = useLocation();
   const [headerBackground, setHeaderBackground] = useState(false);
 
@@ -80,7 +80,7 @@ const Header = ({ currentUser, showCart, toggleCartHidden }) => {
           SHOP
         </Link>
         {
-          currentUser ? <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>
+          currentUser ? <div className="option" onClick={signOutStart}>SIGN OUT</div>
             : <Link className="option" to={'/signin'}>SIGN IN</Link>
         }
         <CartIcon />
@@ -96,7 +96,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleCartHidden: () => dispatch(closeCartDropdown())
+  toggleCartHidden: () => dispatch(closeCartDropdown()),
+  signOutStart: () => dispatch(signOutStart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

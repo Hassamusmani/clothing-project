@@ -20,3 +20,7 @@ export const removeFromCart = (id) => ({
   type: 'REMOVE_FROM_CART',
   payload: id
 })
+
+export const resetCart = () => ({
+  type: 'RESET_CART',
+})
