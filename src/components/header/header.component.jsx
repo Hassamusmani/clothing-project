@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { connect } from 'react-redux'
 import CartIcon from "../cart-icon/cart-icon.component";
@@ -40,6 +40,10 @@ const Wrapper = styled.div`
     .option {
       padding: 10px 15px;
       cursor: pointer;
+
+      &.active {
+        border-bottom: 5px solid #000000b3;
+      }
     }
   }
 `;
@@ -48,24 +52,28 @@ const Header = ({ currentUser, showCart, toggleCartHidden, signOutStart }) => {
   const location = useLocation();
   const [headerBackground, setHeaderBackground] = useState(false);
 
-  const listenScrollEvent = () => {
+  const listenScrollEvent = useCallback(() => {
     if (window.scrollY > 50) {
       return setHeaderBackground(true);
     }
     return setHeaderBackground(false);
-  }
+  }, []);
 
-  useEffect(() => {
+  const handleToggleOnLocationCahnge = useCallback(() => {
     if (showCart) toggleCartHidden();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location]);
+  
+  useEffect(() => {
+    handleToggleOnLocationCahnge();
+  }, [handleToggleOnLocationCahnge]);
 
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent);
 
     return () =>
       window.removeEventListener('scroll', listenScrollEvent);
-  }, []);
+  }, [listenScrollEvent]);
 
   return (
     <Wrapper scrolled={headerBackground}>
@@ -73,15 +81,15 @@ const Header = ({ currentUser, showCart, toggleCartHidden, signOutStart }) => {
         <Logo />
       </Link>
       <div className="options">
-        <Link className="option" to={'/'}>
+        <NavLink className={({ isActive }) => isActive ? "active option" : "option" } to={'/'}>
           HOME
-        </Link>
-        <Link className="option" to={'/shop'}>
+        </NavLink>
+        <NavLink className={({ isActive }) => isActive ? "active option" : "option"} to={'/shop'}>
           SHOP
-        </Link>
+        </NavLink>
         {
           currentUser ? <div className="option" onClick={signOutStart}>SIGN OUT</div>
-            : <Link className="option" to={'/signin'}>SIGN IN</Link>
+            : <NavLink className={({ isActive }) => isActive ? "active option" : "option"} to={'/signin'}>SIGN IN</NavLink>
         }
         <CartIcon />
       </div>
