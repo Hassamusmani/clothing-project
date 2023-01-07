@@ -23,10 +23,21 @@ const Wrapper = styled.div`
   z-index: 100;
   background-color: ${({ scrolled }) => scrolled ? '#ffffffbd' : 'transparent'};
 
+  @media screen and (max-width: 800px) {
+    height: 80px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
   .logo-container {
     height: 100%;
     width: 100px;
     padding: 15px;
+
+    @media screen and (max-width: 800px) {
+      width: 50px;
+      padding: 0;
+    }
   }
 
   .options {
@@ -37,12 +48,24 @@ const Wrapper = styled.div`
     justify-content: flex-end;
     font-size: 20px;
 
+    @media screen and (max-width: 800px) {
+      width: 80%;
+      font-size: 16px;
+    }
     .option {
       padding: 10px 15px;
       cursor: pointer;
 
       &.active {
         border-bottom: 5px solid #000000b3;
+
+        @media screen and (max-width: 800px) {
+          border-bottom: 2px solid #000000b3;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+        padding: 5px 7px;
       }
     }
   }

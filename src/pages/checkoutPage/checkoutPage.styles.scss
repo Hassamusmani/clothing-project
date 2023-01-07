@@ -16,6 +16,8 @@
     .header-block {
       text-transform: capitalize;
       width: 23%;
+      font-size: 20px;
+      font-weight: 400;
 
       &:last-child {
         width: 8%;
@@ -43,5 +45,28 @@
     margin-top: 40px;
     font-size: 24px;
     color: red;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+
+    .name,
+    .price,
+    .quantity,
+    .arrow {
+      font-size: 16px;
+    }
+
+    .total {
+      font-size: 30px;
+    }
+
+    .test-warning {
+      font-size: 18px;
+    }
+
+    .header-block {
+      font-size: 14px !important;
+    }
   }
 }

@@ -40,6 +40,11 @@
   button {
     margin-top: auto;
   }
+
+  @media screen and (max-width: 800px) {
+    top: 90px;
+    right: 15px;
+  }
 }
 
 .cart-dropdown::-webkit-scrollbar {

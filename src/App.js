@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
 import Header from './components/header/header.component';
 import { HomePage } from './pages/homepage/homepage.component';
 import ShopPage from './pages/shoppage/shop.component';
@@ -10,6 +9,7 @@ import { checkUserSession, setCurrentUser } from './redux/user/user-actions';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user-selectors';
 import CheckoutPage from './pages/checkoutPage/checkoutPage.component';
+import { GlobalStyles } from './global.styles';
 class App extends React.Component {
   componentDidMount() {
     const { checkUserSession } = this.props;
@@ -20,6 +20,7 @@ class App extends React.Component {
     const {currentUser} = this.props;
     return (
       <div>
+        <GlobalStyles />
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />

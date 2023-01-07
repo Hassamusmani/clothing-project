@@ -9,19 +9,19 @@ import StripeCheckoutButton from "../../components/stripe-button/stripe-button.c
 const CheckoutPage = ({ cartItems, cartTotal }) => (
   <div className="checkout-page">
     <div className="checkout-header">
-      <div className="hearer-block">
+      <div className="header-block">
         <span>Product</span>
       </div>
-      <div className="hearer-block">
+      <div className="header-block">
         <span>Description</span>
       </div>
-      <div className="hearer-block">
+      <div className="header-block">
         <span>Quantity</span>
       </div>
-      <div className="hearer-block">
+      <div className="header-block">
         <span>Price</span>
       </div>
-      <div className="hearer-block">
+      <div className="header-block">
         <span>Remove</span>
       </div>
     </div>
