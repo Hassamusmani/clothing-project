@@ -1,36 +1,47 @@
-import React from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/header/header.component';
-import { HomePage } from './pages/homepage/homepage.component';
-import ShopPage from './pages/shoppage/shop.component';
-import { SignInAndSignUpPage } from './pages/signIn-and-signUp/signIn-and-signUp.component';
 import { connect } from 'react-redux'
 import { checkUserSession, setCurrentUser } from './redux/user/user-actions';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user-selectors';
-import CheckoutPage from './pages/checkoutPage/checkoutPage.component';
 import { GlobalStyles } from './global.styles';
-class App extends React.Component {
-  componentDidMount() {
-    const { checkUserSession } = this.props;
-    checkUserSession();
-  }
+import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
-  render() {
-    const {currentUser} = this.props;
-    return (
-      <div>
-        <GlobalStyles />
-        <Header />
+const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
+const ShopPage = lazy(() => import('./pages/shoppage/shop.component'));
+const SignInAndSignUpPage = lazy(() => import('./pages/signIn-and-signUp/signIn-and-signUp.component'));
+const CheckoutPage = lazy(() => import('./pages/checkoutPage/checkoutPage.component'));
+
+const App = ({ checkUserSession, currentUser }) => {
+
+  useEffect(() => {
+    checkUserSession();
+  }, []);
+
+  return (
+    <div>
+      <GlobalStyles />
+      <Header />
+      <ErrorBoundary>
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/shop/*' element={<ShopPage />} />
-          <Route path='/signin' element={currentUser ? <Navigate to='/' /> : <SignInAndSignUpPage />} />
-          <Route path='/checkout' element={<CheckoutPage />} />
+          <Route path='/' element={(
+            <Suspense fallback={<Spinner />}><HomePage /></Suspense>
+          )} />
+          <Route path='/shop/*' element={(
+            <Suspense fallback={<Spinner />}><ShopPage /></Suspense>
+          )} />
+          <Route path='/signin' element={currentUser ? <Navigate to='/' /> : (
+            <Suspense fallback={<Spinner />}><SignInAndSignUpPage /></Suspense>
+          )} />
+          <Route path='/checkout' element={(
+            <Suspense fallback={<Spinner />}><CheckoutPage /></Suspense>
+          )} />
         </Routes>
-      </div>
-    );
-  }
+      </ErrorBoundary>
+    </div>
+  );    
 }
 
 const mapStateToProps = createStructuredSelector({

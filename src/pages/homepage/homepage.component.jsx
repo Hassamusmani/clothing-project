@@ -10,8 +10,10 @@ const Wrapper = styled.div`
   padding: 20px 0px;
 `;
 
-export const HomePage = () => (
+const HomePage = () => (
   <Wrapper>
     <Directory />
   </Wrapper>
-)
+);
+
+export default HomePage;
